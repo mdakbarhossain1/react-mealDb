@@ -28,3 +28,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 }
+
+.food-name{
+    color: aliceblue;
+}
