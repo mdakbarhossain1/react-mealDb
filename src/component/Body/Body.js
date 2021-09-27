@@ -41,6 +41,8 @@ const Body = () => {
             for (const mealId in saveDb){
                 console.log(mealId);
                 const food = foods.find(fd => fd.idMeal === mealId)
+                const quantity = saveDb[mealId];
+                food.quantity = quantity;
                 saveCart.push(food);
                 setCart(saveCart);
             }
@@ -52,12 +54,18 @@ const Body = () => {
 
 
     const handleAddToCart = (props) => {
+        props.quantity= 1;
         // console.log('clicked', props);
         const newCart = [...carts,props];
         setCart(newCart)
         addToDb(props.idMeal)
     }
 
+
+    // total qunatity 
+
+    const countReducer = (perivious,food)=> perivious + food.quantity
+    const count = carts.reduce(countReducer ,0)
 
     return (
         <div className='b-background'>
@@ -79,6 +87,7 @@ const Body = () => {
 
                 <div className="food-name">
                     <h1>Food name</h1>
+                    <h2>Order Items : {count}</h2>
                     {
                         carts.map(cart => <Cart key = {cart.idMeal} cart = {cart}></Cart>)
                     }
